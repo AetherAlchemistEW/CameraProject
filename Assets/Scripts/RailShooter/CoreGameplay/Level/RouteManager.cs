@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class RouteManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class RouteManager : MonoBehaviour
     public Color nodeColour;
     public Color pathColour;
     public List<Vector3> nodes;
-    
+
     //Go through the nodes on the route, draw a sphere at each point and a line between them
     void OnDrawGizmos()
     {
@@ -21,9 +22,8 @@ public class RouteManager : MonoBehaviour
                 //Draw a sphere at the node position
                 Gizmos.color = nodeColour;
                 Gizmos.DrawWireSphere(nodes[i], 0.5f);
-
                 //Make sure we have a next node, draw a line between the current and the next
-                if(i+1 < nodes.Count)
+                if (i+1 < nodes.Count)
                 {
                     Gizmos.color = pathColour;
                     Gizmos.DrawLine(nodes[i], nodes[i + 1]);
