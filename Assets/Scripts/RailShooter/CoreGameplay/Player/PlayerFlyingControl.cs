@@ -19,6 +19,8 @@ public class PlayerFlyingControl : MonoBehaviour
     public float lookDist;
     public float minLookDist;
 
+    public Transform crossHair;
+
     void Awake()
     {
         //Set all the starting variables and references.
@@ -97,12 +99,14 @@ public class PlayerFlyingControl : MonoBehaviour
         //Assign the calculated position, use a lerp to make it feel nice and give some control over speed.
         movePos = Camera.main.ScreenToWorldPoint(new Vector3(xPos, yPos, zPos));
         transform.position = Vector3.Lerp(transform.position, movePos, Time.smoothDeltaTime * speed);
+
+        crossHair.position = tarPos;
     }
 
     void OnDrawGizmos()
     {
         //Temporary crosshair
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(tarPos, 0.5f);
+        Gizmos.DrawWireSphere(tarPos, 1.0f);
     }
 }

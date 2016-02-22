@@ -13,6 +13,10 @@ public class RouteManagerInspector : Editor
     public override void OnInspectorGUI()
     {
         RouteManager rm = (RouteManager)target;
+        if (Selection.activeGameObject == rm)
+        {
+            selectedNode = -1;
+        }
         //Colour section
         rm.nodeColour = EditorGUILayout.ColorField("Node Color", rm.nodeColour);
         rm.pathColour = EditorGUILayout.ColorField("Path Color", rm.pathColour);
@@ -63,14 +67,17 @@ public class RouteManagerInspector : Editor
                 {
                     Vector2 guiPoint = HandleUtility.WorldToGUIPoint(rm.nodes[i]);
                     //If the click is within 20 pixels, this is the new selected node.
-                    if(Vector2.Distance(guiPoint, e.mousePosition) < 20)
+                    if(Vector2.Distance(guiPoint, e.mousePosition) < 10)
                     {
                         selectedNode = i;
                     }
                 }
             }
             //Draw handles for the selected node and connect them to the appropriate variable
-            rm.nodes[selectedNode] = Handles.PositionHandle(rm.nodes[selectedNode], Quaternion.identity);
+            if (selectedNode >= 0)
+            {
+                rm.nodes[selectedNode] = Handles.PositionHandle(rm.nodes[selectedNode], Quaternion.identity);
+            }
         }
     }
 }

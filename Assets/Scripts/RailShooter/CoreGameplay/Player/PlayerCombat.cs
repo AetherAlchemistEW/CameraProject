@@ -14,6 +14,7 @@ public class PlayerCombat : MonoBehaviour, iHurtable
     [HideInInspector]
     public bool isAlive;
     Rigidbody R;
+    public GameObject laser;
 
     // Use this for initialization
     void Start()
@@ -52,13 +53,18 @@ public class PlayerCombat : MonoBehaviour, iHurtable
     void FireLaser()
     {
         fireTimer = fireRate;
+        GameObject curLaser = (GameObject)Instantiate(laser, transform.position, transform.rotation);
+        curLaser.GetComponent<Laser>().ownedTag = gameObject.tag;
+        curLaser.GetComponent<Laser>().damage = damage;
+        curLaser.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 1000);
+
         //Shoot laser
         RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, fwd, out hit))
         {
             //Collect all the monobehaviours on the object incase it has more than one
-            MonoBehaviour[] scripts = hit.transform.GetComponents<MonoBehaviour>();
+            /*MonoBehaviour[] scripts = hit.transform.GetComponents<MonoBehaviour>();
             foreach (MonoBehaviour mb in scripts)
             {
                 //if one of the scripts implements the interface for being hit, then run that method
@@ -71,9 +77,9 @@ public class PlayerCombat : MonoBehaviour, iHurtable
                     iHurtable h = (iHurtable)mb;
                     h.Hit(damage, hit.point);
                 }
-            }
+            }*/
         }
-        Debug.DrawRay(transform.position, fwd * 100, Color.red);
+        //Debug.DrawRay(transform.position, fwd * 100, Color.red);
     }
 
     public void Hit(int damage, Vector3 point)
