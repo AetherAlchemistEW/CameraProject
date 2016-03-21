@@ -26,9 +26,9 @@ public class SpawnPoint : MonoBehaviour
         for (int i = 0; i < spawns.Length; i++)
         {
             GameObject temp;
-            temp = (GameObject)Instantiate(spawns[i], routes[i].nodes[0], transform.rotation);
+            temp = (GameObject)Instantiate(spawns[i], routes[i].fullNodes[0], transform.rotation);
             //assign the route,
-            temp.GetComponent<SquadController>().route = routes[i].nodes;
+            temp.GetComponent<SquadController>().route = routes[i].fullNodes;
             //then wait till next wave
             yield return new WaitForSeconds(spawnTimer);
         }

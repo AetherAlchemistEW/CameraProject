@@ -26,7 +26,7 @@ public class PathJunctionController : MonoBehaviour
             }
             //Cube to differentiate from the route nodes, position at the start of the first route
             //(Pressumably all routes will start from here and you won't turn gizmos on without a route)
-            transform.position = routes[0].nodes[0];
+            transform.position = routes[0].fullNodes[0];
             Gizmos.DrawWireCube(transform.position, Vector3.one);
         }
     }
@@ -43,12 +43,12 @@ public class PathJunctionController : MonoBehaviour
         if (cameraJunction)
         {
             //Decision Making process... Random, position, ect
-            nodes = routes[chosenPath].nodes;
+            nodes = routes[chosenPath].fullNodes;
         }
         else //junction is for AI
         {
             //Decision Making process... Random, position, ect
-            nodes = routes[chosenPath].nodes;
+            nodes = routes[chosenPath].fullNodes;
         }
 
         //Return the list of nodes on the determined route

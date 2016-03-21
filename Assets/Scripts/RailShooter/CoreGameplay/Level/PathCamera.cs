@@ -18,7 +18,7 @@ public class PathCamera : MonoBehaviour
 	void Start ()
     {
         //Starting route comes from assigned routemanager
-        route = GetComponent<RouteManager>().nodes;
+        route = GetComponent<RouteManager>().fullNodes;
 	}
 	
 	// Update is called once per frame
